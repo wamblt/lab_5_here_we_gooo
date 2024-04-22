@@ -4,12 +4,12 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.lab_5_here_we_gooo.entities.CustomConvo
 import com.example.lab_5_here_we_gooo.entities.User
-import com.example.lab_5_here_we_gooo.objects.DerekDao
+import com.example.lab_5_here_we_gooo.objects.ConvoDao
 import com.example.lab_5_here_we_gooo.objects.UserDao
 
 @Database(version = 1, entities = [CustomConvo::class])
-abstract class CustomDerekBase: RoomDatabase(){
-    abstract fun customDaoek(): DerekDao
+abstract class CustomConvoBase: RoomDatabase(){
+    abstract fun customDaoek(): ConvoDao
 }
 
 @Database(version = 1, entities = [User::class])

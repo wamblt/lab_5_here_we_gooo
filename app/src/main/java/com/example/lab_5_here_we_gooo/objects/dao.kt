@@ -9,7 +9,7 @@ import com.example.lab_5_here_we_gooo.entities.CustomConvo
 import com.example.lab_5_here_we_gooo.entities.User
 
 @Dao
-interface DerekDao{
+interface ConvoDao{
     @Insert
     fun insertCustomDerek(derek: CustomConvo)
     @Delete
@@ -18,11 +18,12 @@ interface DerekDao{
     fun updateDerek(derek: CustomConvo)
     @Query("Select * from derekEntity")
     fun getAllDereks(): List<CustomConvo>
-    @Query("Select * from derekEntity where id = :derekId")
-    fun getDerekById(derekId: Long): CustomConvo
+    @Query("Select * from derekEntity where id = :convoId")
+    fun getDerekById(convoId: Long): CustomConvo
 
 }
 
+@Dao
 interface UserDao{
     @Insert
     fun insertUser(user: User)

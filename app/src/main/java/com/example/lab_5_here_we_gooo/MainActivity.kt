@@ -35,9 +35,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.room.Room
-import com.example.lab_5_here_we_gooo.databases.CustomDerekBase
+import com.example.lab_5_here_we_gooo.databases.CustomConvoBase
 import com.example.lab_5_here_we_gooo.entities.CustomConvo
-import com.example.lab_5_here_we_gooo.objects.DerekDao
+import com.example.lab_5_here_we_gooo.objects.ConvoDao
 import com.example.lab_5_here_we_gooo.pages.AddUserPage
 import com.example.lab_5_here_we_gooo.pages.ConvoPage
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,8 +45,8 @@ import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class DerekExampleApp: Application(){
-    private lateinit var _db: CustomDerekBase
-    val db: CustomDerekBase
+    private lateinit var _db: CustomConvoBase
+    val db: CustomConvoBase
         get() = _db
 
     override fun onCreate() {
@@ -55,7 +55,7 @@ class DerekExampleApp: Application(){
         _db = Room
             .databaseBuilder(
                 this.baseContext,
-                CustomDerekBase::class.java,
+                CustomConvoBase::class.java,
                 "room_example")
             .build()
     }
@@ -69,14 +69,14 @@ class DerekExampleApp: Application(){
 
 
 class MainActivity() : ComponentActivity(){
-    private lateinit var _db: CustomDerekBase
+    private lateinit var _db: CustomConvoBase
 
     override fun onStart() {
         super.onStart()
         _db = Room
             .databaseBuilder(
                 this.baseContext,
-                CustomDerekBase::class.java,
+                CustomConvoBase::class.java,
                 "room_example")
             .allowMainThreadQueries()
             .build()
@@ -108,12 +108,12 @@ class MainActivity() : ComponentActivity(){
     }
 }
 
-class ConvoViewModel(private val derekDao: DerekDao): ViewModel(){
+class ConvoViewModel(private val convoDao: ConvoDao): ViewModel(){
     companion object Factory{
         val Factory = viewModelFactory {
             initializer {
                 val app = this[APPLICATION_KEY] as DerekExampleApp
-                ConvoViewModel(derekDao = app.db.customDaoek())
+                ConvoViewModel(convoDao = app.db.customDaoek())
             }
         }
     }
@@ -121,15 +121,15 @@ class ConvoViewModel(private val derekDao: DerekDao): ViewModel(){
     private var _dereks = MutableStateFlow(emptyList<CustomConvo>())
     init {
         viewModelScope.launch {
-            _dereks.emit(derekDao.getAllDereks())
+            _dereks.emit(convoDao.getAllDereks())
         }
     }
 
     val dereks = _dereks
 
-    fun createDerek(superDEREKname: String, derekList: List<String>){
-        val derek = CustomConvo(Random(System.currentTimeMillis()).nextLong(), superDEREKname, derekList)
-        derekDao.insertCustomDerek(derek)
+    fun createDerek(superDEREKname: String){
+        val derek = CustomConvo(Random(System.currentTimeMillis()).nextLong(), superDEREKname)
+        convoDao.insertCustomDerek(derek)
     }
 }
 
@@ -144,7 +144,7 @@ fun Convos(cVM: ConvoViewModel, onConvoClicked: (id:Long) -> Unit){
         },
         floatingActionButton = {
             IconButton(onClick = {
-                cVM.createDerek("derek", arrayListOf("A, B, C", "D, E, F"))
+                cVM.createDerek("derek")
             }){
                 Icon(imageVector = Icons.Filled.Add, contentDescription = "add_derek")
             }

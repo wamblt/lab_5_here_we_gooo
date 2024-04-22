@@ -9,8 +9,7 @@ data class CustomConvo(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     @ColumnInfo(name = "derek name")
-    val superDEREKname: String,
-    val superDEREKS: List<String>)
+    val superDEREKname: String, )
 
 
 @Entity(tableName = "userEntity")

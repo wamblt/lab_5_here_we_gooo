@@ -12,12 +12,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -30,7 +32,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.room.Room
-import com.example.lab_5_here_we_gooo.databases.CustomDerekBase
 import com.example.lab_5_here_we_gooo.databases.CustomUserDatabase
 import com.example.lab_5_here_we_gooo.entities.User
 import com.example.lab_5_here_we_gooo.objects.UserDao
@@ -100,26 +101,38 @@ class UserViewModel(private val userDao: UserDao): ViewModel(){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+fun AddUser(uVM: UserViewModel){
+    val name: String = ""
+    val age: Int = 0
+    Card {
+        Row(horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+            TextField(value = name, onValueChange = {}, label = { Text(text = "Name")})
+        }
+        Row(horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+            TextField(value = age.toString(), onValueChange = {}, label = { Text(text = "Age")})
+        }
+        Row(horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+            Button(onClick = { val user = uVM.createUser(name, age) }) {
+                Text(text = "Save User")
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
 fun Users(uVM: UserViewModel){
     val users by uVM.users.collectAsState()
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Convos") })
+            TopAppBar(title = { Text("Users") })
         },
-        floatingActionButton = {
-            IconButton(onClick = {
-                uVM.createUser("derek", 25)
-            }){
-                Icon(imageVector = Icons.Filled.Add, contentDescription = "add_derek")
-            }
-        }
     ) {
             padding -> LazyColumn(modifier = Modifier.padding(padding)){
         items(items = users, key = {it.id}){
             Card {
                 Row(horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Text(it.userName)
-
                 }
                 Text("Age: ${it.userAge}")
             }

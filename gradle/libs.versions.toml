@@ -9,6 +9,8 @@ appcompat = "1.6.1"
 material = "1.11.0"
 ksp = "1.9.23-1.0.20"
 uiToolingPreviewAndroid = "1.6.6"
+coreKtxVersion = "1.5.0"
+junitKtx = "1.1.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -20,6 +22,8 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-room-runtime = {group="androidx.room", name = "room-runtime"}
 andriod-room-compiler = {group="androidx.room", name = "room-compiler"}
 androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version.ref = "uiToolingPreviewAndroid" }
+core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreKtxVersion" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 
 
 [plugins]
