@@ -5,4 +5,18 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "derekEntity")
-data class CustomDerek(@PrimaryKey val id: String, @ColumnInfo(name = "derek name") val superDEREKname: String, val superDEREKage: Int)
+data class CustomConvo(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long,
+    @ColumnInfo(name = "derek name")
+    val superDEREKname: String,
+    val superDEREKS: List<String>)
+
+
+@Entity(tableName = "userEntity")
+data class User(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long,
+    @ColumnInfo(name = "user name")
+    val userName: String,
+    val userAge: Int)

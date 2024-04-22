@@ -34,6 +34,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures{
+        compose = true
+    }
+
+    composeOptions{
+        kotlinCompilerExtensionVersion = "1.5.2"
+    }
 }
 
 dependencies {
@@ -41,6 +49,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.androidx.ui.tooling.preview.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -48,6 +57,8 @@ dependencies {
     implementation("androidx.compose.material3:material3-android:1.2.1")
     implementation("com.google.android.material:material:1.11.0")
     val room_version = "2.6.1"
+    val lifecycle_version = "2.7.0"
+    val nav_version = "2.7.7"
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
 // To use Kotlin annotation processing tool (kapt)
@@ -60,5 +71,7 @@ dependencies {
     testImplementation("androidx.room:room-testing:$room_version")
     androidTestImplementation("androidx.room:room-testing:$room_version")
     implementation("androidx.activity:activity-compose:1.0.0-beta01")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 
 }
